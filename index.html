@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>AIVerse Wallet</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#101827;color:#eef3ff;
+ font-family:Tahoma,Arial,sans-serif;
+}
+header{
+ padding:20px 6%;display:flex;
+ justify-content:space-between;align-items:center;
+ border-bottom:1px solid #29364b;
+}
+.logo{font-size:22px;font-weight:bold;color:#65e4c2}
+button{
+ border:0;border-radius:12px;padding:12px 18px;
+ cursor:pointer;font-weight:bold;
+}
+.primary{background:#65e4c2;color:#10232b}
+.secondary{background:#29364b;color:white}
+main{max-width:1100px;margin:auto;padding:30px 18px}
+h1{font-size:26px}
+.muted{color:#9eacc2}
+.grid{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:16px;margin-top:22px
+}
+.card{
+ background:#1b293c;border:1px solid #2b3b52;
+ border-radius:18px;padding:22px;
+}
+.balance{font-size:32px;font-weight:bold;margin:15px 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.asset{
+ display:flex;justify-content:space-between;
+ align-items:center;padding:16px 0;
+ border-bottom:1px solid #334158
+}
+.asset:last-child{border:0}
+.coin{font-weight:bold}
+.notice{
+ margin-top:20px;padding:15px;
+ background:#332c1b;border:1px solid #80652d;
+ border-radius:12px;color:#f7d98a;line-height:1.8
+}
+#assistant{
+ position:fixed;bottom:20px;left:20px;
+ width:min(340px,calc(100vw - 40px));
+ background:#1b293c;border:1px solid #65e4c2;
+ border-radius:18px;padding:15px;
+ box-shadow:0 10px 35px #0008;
+}
+#assistant input{
+ width:100%;padding:12px;border-radius:10px;
+ border:1px solid #44536a;background:#101827;color:white;
+ margin-top:10px
+}
+#answer{font-size:13px;line-height:1.8}
+footer{text-align:center;padding:30px;color:#8291a8}
+@media(max-width:500px){
+ header{padding:16px}
+ .balance{font-size:25px}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">◈ AIVerse Wallet</div>
+ <button class="secondary" id="network">شبکه: آزمایشی</button>
+</header>
+
+<main>
+ <h1>کیف پول دیجیتال من</h1>
+ <p class="muted">مدیریت دارایی‌ها در یک محیط یکپارچه</p>
+
+ <section class="grid">
+  <div class="card">
+   <div class="muted">مجموع دارایی آزمایشی</div>
+   <div class="balance">$12,450.00</div>
+   <span class="muted">اطلاعات نمایشی؛ متصل به بلاکچین نیست</span>
+   <div class="actions">
+    <button class="primary" onclick="alert('ارسال واقعی هنوز فعال نیست')">ارسال</button>
+    <button class="secondary" onclick="alert('دریافت واقعی هنوز فعال نیست')">دریافت</button>
+   </div>
+  </div>
+
+  <div class="card">
+   <div class="muted">وضعیت امنیت</div>
+   <div class="balance" style="font-size:22px">نسخه آزمایشی</div>
+   <p class="muted">امضای تراکنش و نگهداری کلید هنوز فعال نیست.</p>
+  </div>
+ </section>
+
+ <section class="card" style="margin-top:20px">
+  <h3>دارایی‌های دیجیتال</h3>
+  <div class="asset">
+   <span class="coin">₿ Bitcoin</span>
+   <span>0.125 BTC</span>
+  </div>
+  <div class="asset">
+   <span class="coin">Ξ Ethereum</span>
+   <span>1.50 ETH</span>
+  </div>
+  <div class="asset">
+   <span class="coin">XRP</span>
+   <span>850 XRP</span>
+  </div>
+  <div class="asset">
+   <span class="coin">ADA</span>
+   <span>1200 ADA</span>
+  </div>
+ </section>
+
+ <div class="notice">
+  هشدار امنیتی: این نسخه فقط نمونه رابط کاربری است.
+  برای استفاده با پول واقعی باید تولید و نگهداری امن کلید،
+  امضای محلی و بررسی شبکه پیاده‌سازی شود.
+ </div>
+</main>
+
+<div id="assistant">
+ <strong>✦ دستیار هوشمند AIVerse</strong>
+ <p id="answer" class="muted">
+ سلام! من دستیار نمایشی کیف پول هستم.
+ برای اتصال به مدل هوش مصنوعی باید API سمت سرور تنظیم شود.
+ </p>
+ <input id="question" placeholder="سوال خود را بنویسید...">
+ <div class="actions">
+  <button class="primary" onclick="ask()">ارسال سوال</button>
+  <button class="secondary" onclick="document.getElementById('assistant').style.display='none'">بستن</button>
+ </div>
+</div>
+
+<footer>
+ AIVerse Wallet · Prototype · Version 0.1.0
+</footer>
+
+<script>
+function ask(){
+ const q=document.getElementById('question').value.trim();
+ if(!q)return;
+ document.getElementById('answer').textContent=
+ 'سوال شما ثبت شد: '+q+
+ ' | اتصال واقعی دستیار هوش مصنوعی در نسخه بعدی اضافه می‌شود.';
+ document.getElementById('question').value='';
+}
+document.getElementById('network').onclick=()=>{
+ alert('این نسخه در حالت نمایشی است؛ شبکه واقعی متصل نیست.');
+};
+</script>
+</body>
+</html>
