@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><title>Social Growth Hub</title>
+<style>
+:root{color-scheme:dark;--bg:#101827;--panel:#1b293c;--line:#33445d;--accent:#65e4c2;--muted:#9eacc2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#eef3ff;font:15px Tahoma,Arial,sans-serif}
+header{padding:18px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-size:20px;font-weight:bold;color:var(--accent)}main{max-width:1100px;margin:auto;padding:28px 18px}
+h1{font-size:26px}.muted{color:var(--muted);line-height:1.8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:20px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 13px;background:#101827;color:#fff;border:1px solid #465670;border-radius:10px;font:inherit}
+textarea{min-height:110px;resize:vertical}button{border:0;border-radius:10px;padding:11px 16px;background:var(--accent);color:#10232b;font-weight:bold;cursor:pointer}
+button.secondary{background:#34445b;color:white}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.post{padding:12px 0;border-bottom:1px solid var(--line)}.tag{font-size:12px;color:var(--accent)}
+#assistant{position:fixed;left:16px;bottom:16px;width:min(310px,calc(100vw - 32px));background:#202f43;border:1px solid var(--accent);border-radius:15px;padding:14px;box-shadow:0 8px 30px #0008}
+.notice{padding:12px;border:1px solid #80652d;background:#332c1b;color:#f7d98a;border-radius:10px;line-height:1.8}
+@media(max-width:520px){h1{font-size:22px}#assistant{position:static;margin:16px}}
+</style></head>
+<body>
+<header><div class="brand">◈ Social Growth Hub</div><span class="muted">مدیریت هوشمند حضور اجتماعی</span></header>
+<main>
+<h1>مرکز مدیریت شبکه‌های اجتماعی</h1>
+<p class="muted">ایده‌پردازی، تقویم محتوا و پیگیری عملکرد در یک فضای یکپارچه</p>
+<div class="notice">نسخه MVP نمایشی: اطلاعات در همین مرورگر ذخیره می‌شود. انتشار خودکار، اتصال رسمی شبکه‌ها و تحلیل زنده هنوز فعال نیست. این ابزار برای رشد واقعی و مطابق قوانین پلتفرم‌ها طراحی شده؛ نه خرید فالوور یا تعامل جعلی.</div>
+<section class="grid">
+<div class="card"><div class="muted">محتواهای ثبت‌شده</div><h2 id="total">۰</h2></div>
+<div class="card"><div class="muted">پیش‌نویس‌ها</div><h2 id="drafts">۰</h2></div>
+<div class="card"><div class="muted">شبکه‌های قابل برنامه‌ریزی</div><h2>چندشبکه‌ای</h2><p class="muted">اتصال رسمی در مرحله بعد</p></div>
+</section>
+<section class="grid">
+<div class="card">
+<h3>ساخت محتوای جدید</h3>
+<label for="platform">شبکه هدف</label><select id="platform"><option>Instagram</option><option>Telegram</option><option>YouTube</option><option>LinkedIn</option><option>X</option><option>TikTok</option></select>
+<label for="caption">متن محتوا</label><textarea id="caption" maxlength="3000" placeholder="متن یا ایده خود را بنویسید..."></textarea>
+<div class="row"><button id="save">ذخیره پیش‌نویس</button><button class="secondary" id="clear">پاک‌کردن</button></div>
+</div>
+<div class="card"><h3>تقویم و فهرست محتوا</h3><p class="muted">پیش‌نویس‌های ذخیره‌شده روی این دستگاه</p><div id="posts"></div></div>
+</section>
+<div class="card"><h3>مسیر توسعه</h3><p class="muted">۱) احراز هویت و فضای کاری · ۲) اتصال OAuth رسمی شبکه‌ها · ۳) زمان‌بندی و انتشار مطابق API · ۴) تحلیل داده واقعی · ۵) پلن‌های اشتراکی و خدمات آژانسی</p></div>
+</main>
+<aside id="assistant"><strong>✦ دستیار هوشمند</strong><p class="muted" id="answer">برای پیشنهاد محتوا، تقویم انتشار و بهبود کپشن آماده‌ام. اتصال مدل هوش مصنوعی در نسخه سروری اضافه می‌شود.</p><input id="q" placeholder="درخواست خود را بنویسید"><button id="ask">ثبت درخواست</button></aside>
+<script>
+const key='sgh_posts_v1';const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'[]')}catch{return []}};
+function render(){const a=read();document.getElementById('total').textContent=a.length;document.getElementById('drafts').textContent=a.length;const box=document.getElementById('posts');box.replaceChildren();if(!a.length){box.textContent='هنوز پیش‌نویسی ثبت نشده است.';return}a.slice().reverse().forEach(p=>{const d=document.createElement('div');d.className='post';const t=document.createElement('div');t.className='tag';t.textContent=p.platform+' · پیش‌نویس';const b=document.createElement('div');b.textContent=p.text;d.append(t,b);box.append(d)})}
+document.getElementById('save').addEventListener('click',()=>{const text=document.getElementById('caption').value.trim();if(!text){alert('ابتدا متن محتوا را وارد کنید.');return}const a=read();a.push({platform:document.getElementById('platform').value,text,createdAt:new Date().toISOString()});localStorage.setItem(key,JSON.stringify(a));document.getElementById('caption').value='';render()});
+document.getElementById('clear').addEventListener('click',()=>document.getElementById('caption').value='');
+document.getElementById('ask').addEventListener('click',()=>{const q=document.getElementById('q').value.trim();if(!q)return;document.getElementById('answer').textContent='درخواست شما در نسخه نمایشی ثبت شد. برای پاسخ هوشمند واقعی باید سرویس AI امن سمت سرور متصل شود.';document.getElementById('q').value=''});
+render();
+</script></body></html>
