@@ -156,8 +156,8 @@ async def build_report() -> str:
         f"🕒 {snap['time']} ({TIMEZONE})\n\n"
         f"🪙 <b>رمزارزها — قیمت به دلار</b>\n{coin_text}\n\n"
         f"🌍 <b>بازارهای جهانی</b>\n{global_text}\n\n"
-        f"🧭 <b>شاخص ترس و طمع:</b> {snap['sentiment']}\n\n"
-        f"🧠 <b>جمع‌بندی:</b> {commentary}\n\n"
+        f"🧭 <b>شاخص ترس و طمع:</b> {html.escape(str(snap['sentiment']))}\n\n"
+        f"🧠 <b>جمع‌بندی:</b> {html.escape(str(commentary))}\n\n"
         f"<i>منابع: CoinGecko، Alternative.me و Yahoo Finance. "
         f"اطلاعات ممکن است با تأخیر همراه باشد و توصیه سرمایه‌گذاری نیست.</i>"
     )
